@@ -83,6 +83,21 @@ namespace MovieStore.Controllers
             return View(movie);
         }
 
+        public IActionResult CheckedOutMovies()
+        {
+            var userName = HttpContext.User.Identity.Name.ToString();
+            var userMovies = _contextProvider.GetUserMovies(userName);
+
+            return View(userMovies);
+        }
+
+        public IActionResult ReturnMovie(int movieId)
+        {
+            _contextProvider.ReturnMovie(movieId);
+            
+            return RedirectToAction("Index");
+        }
+
             
     }
 }

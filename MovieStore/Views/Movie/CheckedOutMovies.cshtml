@@ -17,43 +17,40 @@
                     @Html.DisplayNameFor(model => model.Movie.Runtime)
                 </th>
                 <th>
-                    Availability
+                    @Html.DisplayNameFor(model => model.CheckedOutMovies.DueDate)
                 </th>
-                
+                <th>Return</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var movie in Model)
             {
-                
+
                 var hours = (int)movie.Movie.Runtime / 60;
                 var minutes = movie.Movie.Runtime % 60;
-                string runtime = $"{hours}hr{minutes}m";                
-            <tr class="text-center">
-                <td class="text-center">
-                    @movie.Movie.Title
-                </td>
-                <td class="text-center">
-                    @movie.Movie.Genre
-                </td>
-                <td>
-                    @movie.Movie.Year
-                </td>
-                <td>
-                    @runtime
-                </td> 
-                <td>
-                    @if (movie.CheckedOutMovies == null)
-                    {
-                        @Html.ActionLink("Checkout", "Checkout", "Movie",
-                       routeValues: new { movieId = movie.Movie.MovieId},
-                       htmlAttributes: new { @class = "btn btn-dark"})
-                    } else
-                    {
+                string runtime = $"{hours}hr{minutes}m";
+                <tr class="text-center">
+                    <td class="text-center">
+                        @movie.Movie.Title
+                    </td>
+                    <td class="text-center">
+                        @movie.Movie.Genre
+                    </td>
+                    <td>
+                        @movie.Movie.Year
+                    </td>
+                    <td>
+                        @runtime
+                    </td>
+                    <td>
                         <p>Due back: @movie.CheckedOutMovies.DueDate.Date.ToShortDateString()</p>
-                    }
-                </td>
-            </tr>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Return Movie", "ReturnMovie", "Movie",
+                       routeValues: new {  movieId = movie.Movie.MovieId},
+                       htmlAttributes: new { @class = "btn btn-dark"})
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

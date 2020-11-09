@@ -1,4 +1,9 @@
 ﻿@model MoviesViewModel
 
-<h2>@Model.Movie.Title</h2>
-<h4>@Model.CheckedOutMovies.DueDate.ToString()</h4>
+<div class="container text-center">
+    <h2>@Model.Movie.Title has been checked out.</h2>
+    <h4 class="text-danger">Please return by: @Model.CheckedOutMovies.DueDate.Date.ToShortDateString()</h4>
+</div>
+<div class="w-100">
+    <a asp-controller="Movie" asp-action="Index" class="btn btn-dark">Return to Movie List</a>
+</div>

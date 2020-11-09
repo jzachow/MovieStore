@@ -110,5 +110,34 @@ namespace MovieStore.Services
 
             return mvm;
         }
+
+        public List<MoviesViewModel> GetUserMovies(string userName)
+        {
+            var userMovies = new List<MoviesViewModel>();           
+
+            var user = _context.Users.FirstOrDefault(u => u.UserName == userName);
+            var com = _context.CheckedOutMovies.Where(u => u.UserId == user.Id).ToList();            
+
+            foreach (var item in com)
+            {
+                var movie = _context.Movies.FirstOrDefault(m => m.MovieId == item.MovieId);
+                var userMovie = new MoviesViewModel()
+                {
+                    CheckedOutMovies = item,
+                    Movie = movie
+                };
+            userMovies.Add(userMovie);
+            }
+
+            return userMovies;
+        }
+
+        public void ReturnMovie(int movieId)
+        {
+            var movie = _context.CheckedOutMovies.FirstOrDefault(m => m.MovieId == movieId);
+
+            _context.Remove(movie);
+            _context.SaveChanges();
+        }
     }
 }

@@ -23,6 +23,11 @@ namespace MovieStore.Services
         public Movie GetMovie(int movieId);
 
         public MoviesViewModel CheckoutMovie(int movieId, string userName);
+
+        public List<MoviesViewModel> GetUserMovies(string userName);
+
+        public void ReturnMovie(int movieId);
+        
         
     }
 }
