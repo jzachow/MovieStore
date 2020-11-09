@@ -49,7 +49,7 @@ namespace MovieStore.Controllers
 
         public IActionResult Search()
         {
-            var genres = _contextProvider.GetDistincGenres();
+            var genres = _contextProvider.GetDistinctGenres();
 
             return View(genres);
         }

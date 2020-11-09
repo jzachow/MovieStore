@@ -21,13 +21,13 @@ namespace MovieStore.Services
         }
        
 
-        public async void AddMovie(Movie movie)
+        public void AddMovie(Movie movie)
         {
             _context.Add(movie);
-            await _context.SaveChangesAsync();
+             _context.SaveChanges();
         }
 
-        public List<string> GetDistincGenres()
+        public List<string> GetDistinctGenres()
         {
             var movies =  _context.Movies.ToList();
             var genres = movies.Select(_ => _.Genre).Distinct().ToList();

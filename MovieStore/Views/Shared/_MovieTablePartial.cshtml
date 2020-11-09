@@ -50,7 +50,7 @@
                        htmlAttributes: new { @class = "btn btn-dark"})
                     } else
                     {
-                        <p>Due back: @movie.CheckedOutMovies.DueDate.Date.ToShortDateString()</p>
+                        <p class="text-danger"><b>Due back: @movie.CheckedOutMovies.DueDate.Date.ToShortDateString()</b></p>
                     }
                 </td>
             </tr>

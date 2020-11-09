@@ -13,7 +13,7 @@ namespace MovieStore.Services
         
         public void AddMovie(Movie movie);
 
-        public List<string> GetDistincGenres();
+        public List<string> GetDistinctGenres();
 
         public List<MoviesViewModel> SearchMovieByTitle(string searchString);
         public List<MoviesViewModel> SearchMovieByGenre(string searchString);
