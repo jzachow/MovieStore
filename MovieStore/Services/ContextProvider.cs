@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MovieStore.Data;
 using MovieStore.Data.Models;
 using MovieStore.Models;
@@ -74,6 +76,39 @@ namespace MovieStore.Services
             }                     
             
             return movies;
+        }
+
+        public Movie GetMovie(int movieId)
+        {
+            var movie = _context.Movies.FirstOrDefault(m => m.MovieId == movieId);            
+
+            return movie;
+        }
+
+        public MoviesViewModel CheckoutMovie(int movieId, string userName)
+        {
+            var movie = GetMovie(movieId);
+            var user = _context.Users.FirstOrDefault(u => u.UserName == userName);
+
+            var com = new CheckedOutMovies()
+            {
+                User = user,
+                UserId = user.Id,
+                Movie = movie,
+                MovieId = movieId,
+                DueDate = DateTime.Now.AddDays(4)
+            };
+
+            _context.Add(com);
+            _context.SaveChanges();
+
+            var mvm = new MoviesViewModel()
+            {
+                Movie = movie,
+                CheckedOutMovies = com
+            };
+
+            return mvm;
         }
     }
 }

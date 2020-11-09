@@ -1,0 +1,57 @@
+﻿@model MovieStore.Data.Models.Movie
+
+<div class="container">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr class="text-light text-center">
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.Genre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Year)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Runtime)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var hours = (int)Model.Runtime / 60;
+                var minutes = Model.Runtime % 60;
+                string runtime = $"{hours}hr{minutes}m";
+            }
+            <tr class="text-center">
+                <td class="text-center">
+                    @Model.Title
+                </td>
+                <td class="text-center">
+                    @Model.Genre
+                </td>
+                <td>
+                    @Model.Year
+                </td>
+                <td>
+                    @runtime
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="container">
+        <h2 class="text-center">Check out selected movie?</h2>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <a asp-controller="Movie" asp-action="Index" class="btn btn-dark">No</a>
+            </div>
+            <div class="col-4">
+                @Html.ActionLink("Yes", "Result", "Movie",
+               routeValues: new { movieId = Model.MovieId},
+               htmlAttributes: new { @class = "btn btn-dark"})
+            </div>
+        </div>
+    </div>
+</div>

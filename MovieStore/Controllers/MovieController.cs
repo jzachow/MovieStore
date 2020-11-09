@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieStore.Data;
@@ -11,7 +12,7 @@ using MovieStore.Services;
 
 namespace MovieStore.Controllers
 {
-   // [Authorize]
+    [Authorize]
     public class MovieController : Controller
     {
         private readonly IContextProvider _contextProvider;
@@ -22,7 +23,7 @@ namespace MovieStore.Controllers
             
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var movies = _contextProvider.GetMovies();           
 
@@ -46,33 +47,43 @@ namespace MovieStore.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Search()
+        public IActionResult Search()
         {
             var genres = _contextProvider.GetDistincGenres();
 
             return View(genres);
         }
 
-        public async Task<IActionResult> SearchResultTitle(string movieTitle)
+        public IActionResult SearchResultTitle(string movieTitle)
         {
             var movies = _contextProvider.SearchMovieByTitle(movieTitle);
 
             return View(movies);
         }
 
-        public async Task<IActionResult> SearchResultGenre(string movieGenre)
+        public IActionResult SearchResultGenre(string movieGenre)
         {
             var movies = _contextProvider.SearchMovieByGenre(movieGenre);
 
             return View(movies);
         }
 
-        public IActionResult TestView()
+        public IActionResult Checkout(int movieId)
         {
-            var movies = _contextProvider.GetMovies();
+            var movie = _contextProvider.GetMovie(movieId);
 
-            return View(movies);
-        }       
+            return View(movie);
+        }
+
+        public IActionResult Result(int movieId)
+        {
+            var userName = HttpContext.User.Identity.Name.ToString();
+            var movie = _contextProvider.CheckoutMovie(movieId, userName);
+
+            return View(movie);
+        }
+
+            
     }
 }
 

@@ -3,11 +3,11 @@
 <div class="container">
     <table class="table table-striped">
         <thead class="thead-dark">
-            <tr class="text-light">
-                <th class="text-center">
+            <tr class="text-light text-center">
+                <th>
                     @Html.DisplayNameFor(model => model.Movie.Title)
                 </th>
-                <th class="text-center">
+                <th>
                     @Html.DisplayNameFor(model => model.Movie.Genre)
                 </th>
                 <th>
@@ -15,7 +15,11 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Movie.Runtime)
-                </th>                
+                </th>
+                <th>
+                    Availability
+                </th>
+                
             </tr>
         </thead>
         <tbody>
@@ -25,20 +29,31 @@
                 var hours = (int)movie.Movie.Runtime / 60;
                 var minutes = movie.Movie.Runtime % 60;
                 string runtime = $"{hours}hr{minutes}m";
-                <tr>
-                    <td class="text-center">
-                        @movie.Movie.Title
-                    </td>
-                    <td class="text-center">
-                        @movie.Movie.Genre
-                    </td>
-                    <td>
-                        @movie.Movie.Year
-                    </td>
-                    <td>
-                        @runtime
-                    </td>
-                </tr>
+            <tr class="text-center">
+                <td class="text-center">
+                    @movie.Movie.Title
+                </td>
+                <td class="text-center">
+                    @movie.Movie.Genre
+                </td>
+                <td>
+                    @movie.Movie.Year
+                </td>
+                <td>
+                    @runtime
+                </td> 
+                <td>
+                    @if (movie.CheckedOutMovies == null)
+                    {
+                        @Html.ActionLink("Checkout", "Checkout", "Movie",
+                       routeValues: new { movieId = movie.Movie.MovieId},
+                       htmlAttributes: new { @class = "btn btn-dark"})
+                    } else
+                    {
+                        <p>Checked out. Due back: @movie.CheckedOutMovies.DueDate</p>
+                    }
+                </td>
+            </tr>
             }
         </tbody>
     </table>

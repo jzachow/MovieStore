@@ -19,6 +19,10 @@ namespace MovieStore.Services
         public List<MoviesViewModel> SearchMovieByGenre(string searchString);
 
         public List<MoviesViewModel> GetMovies();
+
+        public Movie GetMovie(int movieId);
+
+        public MoviesViewModel CheckoutMovie(int movieId, string userName);
         
     }
 }
