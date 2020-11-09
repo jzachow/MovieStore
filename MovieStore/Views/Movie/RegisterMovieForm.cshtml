@@ -1,0 +1,56 @@
+﻿@model MovieStore.Data.Models.Movie
+
+
+
+<div>
+    <form asp-action="MovieRegistration">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row justify-content-center">
+            <div class="col-1 text-right">
+                <label asp-for="Title"></label>
+            </div>
+            <div class="col-4">
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col-1 text-right">
+                <label asp-for="Genre"></label>
+            </div>
+            <div class="col-4">
+                <input asp-for="Genre" class="form-control" />
+                <span asp-validation-for="Genre" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col-1 text-right">
+                <label asp-for="Year"></label>
+            </div>
+            <div class="col-4">
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col-1 text-right">
+                <label asp-for="Runtime"></label>
+            </div>
+            <div class="col-4">
+                <input asp-for="Runtime" class="form-control" />
+                <span asp-validation-for="Runtime" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <input type="submit" value="Register Movie" class="btn btn-dark" />
+            </div>
+            <div class="col-2">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-dark">Back to Menu</a>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+

@@ -1,0 +1,16 @@
+﻿
+
+@model IEnumerable<MovieStore.Data.Models.Movie>
+
+<div>
+    @if (TempData.ContainsKey("AddedMovie"))
+    {
+        <p class="text-danger text-center">@TempData["AddedMovie"] has been added to the collection</p>
+    }
+</div>
+
+@await Html.PartialAsync("_MovieTablePartial", Model)
+
+<div>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-dark">Back to Menu</a>
+</div>

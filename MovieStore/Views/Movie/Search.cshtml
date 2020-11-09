@@ -1,0 +1,48 @@
+﻿@model IEnumerable<string>
+
+<div class="row text-center">
+    <div class="col-6">
+        <h2>Search By Title</h2>
+
+        @using (Html.BeginForm("SearchResultTitle", "Movie", FormMethod.Post))
+        {
+            <div class="row justify-content-center align-items-center mt-3">
+                <div class="col-3 text-right">
+                    <label>Movie Title</label>
+                </div>
+                <div class="col-6">
+                    <input class="form-control" name="movieTitle" />
+                </div>
+                <div class="col-3">
+                    <input type="submit" class="btn btn-dark" value="Search" />
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-6">
+        <h2>Search By Genre</h2>
+
+        @using (Html.BeginForm("SearchResultGenre", "Movie", FormMethod.Post))
+        {
+            <div class="row justify-content-center align-items-center mt-3">
+                <div class="col-3 text-right">
+                    <label>Movie Genre</label>
+                </div>
+                <div class="col-6">
+                    <select name="movieGenre" class="w-100">
+                        @foreach (var genre in Model)
+                        {
+                            <option value="@genre">@genre</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-3">
+                    <input type="submit" class="btn btn-dark" value="Search" />
+                </div>
+            </div>
+        }
+    </div>
+    <div>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-dark">Back to Menu</a>
+    </div>
+</div>

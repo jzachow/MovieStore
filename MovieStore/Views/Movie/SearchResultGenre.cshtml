@@ -1,0 +1,9 @@
+﻿@model IEnumerable<MovieStore.Data.Models.Movie>
+
+<h2>Search Results</h2>
+
+@await Html.PartialAsync("_MovieTablePartial", Model)
+
+<div>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-dark">Back to Menu</a>
+</div>

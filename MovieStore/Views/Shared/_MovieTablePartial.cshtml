@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@model IEnumerable<MovieStore.Data.Models.Movie>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr class="text-light">
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.Genre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Year)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Runtime)
+                </th>                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in Model)
+            {
+                
+                var hours = (int)movie.Runtime / 60;
+                var minutes = movie.Runtime % 60;
+                string runtime = $"{hours}hr{minutes}m";
+                <tr>
+                    <td class="text-center">
+                        @movie.Title
+                    </td>
+                    <td class="text-center">
+                        @movie.Genre
+                    </td>
+                    <td>
+                        @movie.Year
+                    </td>
+                    <td>
+                        @runtime
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
