@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieStore.Data;
 using MovieStore.Data.Models;
+using MovieStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +17,7 @@ namespace MovieStore.Services
         {
             _context = context;
         }
-
-        public async Task<List<Movie>> GetMovies()
-        {
-            var movies = await _context.Movies.ToListAsync();
-
-            return movies;
-        }
+       
 
         public async void AddMovie(Movie movie)
         {
@@ -30,26 +25,54 @@ namespace MovieStore.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<string>> GetDistincGenres()
+        public List<string> GetDistincGenres()
         {
-            var movies = await _context.Movies.ToListAsync();
+            var movies =  _context.Movies.ToList();
             var genres = movies.Select(_ => _.Genre).Distinct().ToList();
             genres.Sort();
 
             return genres;
         }
 
-        public async Task<List<Movie>> SearchMovieByTitle(string searchString)
+        public List<MoviesViewModel> SearchMovieByTitle(string searchString)
         {
-            List<Movie> movies = await _context.Movies.Where(_ => _.Title.ToUpper().Contains(searchString.ToUpper())).ToListAsync();
+            var movies = GetMovies();
 
-            return movies;
+            List<MoviesViewModel> movieResults = movies.Where(_ => _.Movie.Title.ToUpper().Contains(searchString.ToUpper())).ToList();
+
+            return movieResults;
         }
 
-        public async Task<List<Movie>> SearchMovieByGenre(string searchString)
+        public List<MoviesViewModel> SearchMovieByGenre(string searchString)
         {
-            List<Movie> movies = await _context.Movies.Where(_ => _.Genre == searchString).ToListAsync();
 
+            var movies = GetMovies();
+
+            List<MoviesViewModel> movieResults =  movies.Where(_ => _.Movie.Genre == searchString).ToList();
+
+            return movieResults;
+        }
+
+        public List<MoviesViewModel> GetMovies()
+        {
+          
+            var movies = new List<MoviesViewModel>();
+            var dbList = _context.Movies.ToList();
+
+            foreach (var movie in dbList)
+            {
+                var mvm = new MoviesViewModel()
+                {
+                    Movie = movie                    
+                };
+
+                var checkedOut = _context.CheckedOutMovies.FirstOrDefault(i => i.MovieId == movie.MovieId);
+                if (!(checkedOut == null))
+                    mvm.CheckedOutMovies = checkedOut;
+
+                movies.Add(mvm);
+            }                     
+            
             return movies;
         }
     }

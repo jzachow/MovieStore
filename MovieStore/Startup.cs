@@ -34,7 +34,7 @@ namespace MovieStore
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddSingleton<IContextProvider, ContextProvider>();
+            services.AddScoped<IContextProvider, ContextProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

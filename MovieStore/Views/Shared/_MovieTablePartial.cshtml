@@ -1,22 +1,20 @@
-﻿@using Microsoft.AspNetCore.Identity
-
-@model IEnumerable<MovieStore.Data.Models.Movie>
+﻿@model IEnumerable<MoviesViewModel>
 
 <div class="container">
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr class="text-light">
                 <th class="text-center">
-                    @Html.DisplayNameFor(model => model.Title)
+                    @Html.DisplayNameFor(model => model.Movie.Title)
                 </th>
                 <th class="text-center">
-                    @Html.DisplayNameFor(model => model.Genre)
+                    @Html.DisplayNameFor(model => model.Movie.Genre)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Year)
+                    @Html.DisplayNameFor(model => model.Movie.Year)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Runtime)
+                    @Html.DisplayNameFor(model => model.Movie.Runtime)
                 </th>                
             </tr>
         </thead>
@@ -24,18 +22,18 @@
             @foreach (var movie in Model)
             {
                 
-                var hours = (int)movie.Runtime / 60;
-                var minutes = movie.Runtime % 60;
+                var hours = (int)movie.Movie.Runtime / 60;
+                var minutes = movie.Movie.Runtime % 60;
                 string runtime = $"{hours}hr{minutes}m";
                 <tr>
                     <td class="text-center">
-                        @movie.Title
+                        @movie.Movie.Title
                     </td>
                     <td class="text-center">
-                        @movie.Genre
+                        @movie.Movie.Genre
                     </td>
                     <td>
-                        @movie.Year
+                        @movie.Movie.Year
                     </td>
                     <td>
                         @runtime

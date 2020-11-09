@@ -11,7 +11,7 @@ using MovieStore.Services;
 
 namespace MovieStore.Controllers
 {
-    [Authorize]
+   // [Authorize]
     public class MovieController : Controller
     {
         private readonly IContextProvider _contextProvider;
@@ -24,7 +24,7 @@ namespace MovieStore.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var movies = await _contextProvider.GetMovies();           
+            var movies = _contextProvider.GetMovies();           
 
             return View(movies);
            
@@ -35,7 +35,7 @@ namespace MovieStore.Controllers
             return View();
         }
 
-        public async Task<IActionResult> MovieRegistration(Movie movie)
+        public IActionResult MovieRegistration(Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +67,12 @@ namespace MovieStore.Controllers
             return View(movies);
         }
 
-       
+        public IActionResult TestView()
+        {
+            var movies = _contextProvider.GetMovies();
+
+            return View(movies);
+        }       
     }
 }
 

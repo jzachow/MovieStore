@@ -1,5 +1,6 @@
 ﻿using MovieStore.Data;
 using MovieStore.Data.Models;
+using MovieStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,15 @@ namespace MovieStore.Services
 {
     public interface IContextProvider
     {
-        public Task<List<Movie>> GetMovies();
-
+        
         public void AddMovie(Movie movie);
 
-        public Task<List<string>> GetDistincGenres();
+        public List<string> GetDistincGenres();
 
-        public Task<List<Movie>> SearchMovieByTitle(string searchString);
-        public Task<List<Movie>> SearchMovieByGenre(string searchString);
+        public List<MoviesViewModel> SearchMovieByTitle(string searchString);
+        public List<MoviesViewModel> SearchMovieByGenre(string searchString);
 
-
-       
+        public List<MoviesViewModel> GetMovies();
+        
     }
 }
